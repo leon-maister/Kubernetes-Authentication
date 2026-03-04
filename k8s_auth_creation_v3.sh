@@ -6,12 +6,12 @@ SA_NAME="gateway-token-reviewer"
 SA_FILE="create_sa_gw_token_reviewer.yaml"
 TOKEN_FILE="generate_token_for_sa.yaml"
 SECRET_NAME="sa-reviewer-token"
-PROFILE_NAME="btg"
+PROFILE_NAME="default"
 
 # --- Akeyless configuration
 AUTH_METHOD_NAME="/K8s/k8s-auth-leon-test"
 GW_CONFIG_NAME="k8s-config-created-by-script"
-GW_URL="http://136.114.63.200:8000/api/v1"
+GW_URL="https://gw-aws.lm.cs.akeyless.fans/api/v1"
 
 ROLE_NAME="/FullAccess" 
 LOG_FILE="create_k8s_auth.log"

@@ -9,8 +9,8 @@ TOKEN_FILE="generate_token_for_sa.yaml"
 # Akeyless resource names
 AUTH_METHOD_NAME="/K8s/k8s-auth-leon-test"
 GW_CONFIG_NAME="k8s-config-created-by-script"
-GW_URL="https://gw-gke.lm.cs.akeyless.fans/"
-PROFILE_NAME="btg"
+GW_URL="https://gw-aws.lm.cs.akeyless.fans/api/v1"
+PROFILE_NAME="default"
 
 # Log file for cleanup tracking
 LOG_FILE="cleanup_k8s_auth.log"
@@ -19,6 +19,16 @@ LOG_FILE="cleanup_k8s_auth.log"
 exec > >(tee -a "$LOG_FILE") 2>&1
 
 echo "--- Cleanup started at $(date) ---"
+
+# --- Check gateway URL consistency ---
+if [ "$AKEYLESS_GATEWAY_URL" != "$GW_URL" ]; then
+    echo "ERROR: Gateway URL mismatch detected."
+    echo "The environment variable AKEYLESS_GATEWAY_URL and the script variable GW_URL must point to the same gateway."
+    echo "Environment variable AKEYLESS_GATEWAY_URL: $AKEYLESS_GATEWAY_URL"
+    echo "Script variable GW_URL: $GW_URL"
+    echo "Please update either the environment variable or the GW_URL value in the script so they match."
+    exit 1
+fi 
 
 # 1. Remove Akeyless Gateway Configuration
 echo "--- Deleting Akeyless Gateway K8s Config ---"
