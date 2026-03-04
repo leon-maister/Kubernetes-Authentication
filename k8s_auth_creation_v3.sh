@@ -6,11 +6,13 @@ SA_NAME="gateway-token-reviewer"
 SA_FILE="create_sa_gw_token_reviewer.yaml"
 TOKEN_FILE="generate_token_for_sa.yaml"
 SECRET_NAME="sa-reviewer-token"
+PROFILE_NAME="btg"
 
 # --- Akeyless configuration
 AUTH_METHOD_NAME="/K8s/k8s-auth-leon-test"
 GW_CONFIG_NAME="k8s-config-created-by-script"
-GW_URL="https://gw-gke.lm.cs.akeyless.fans/api/v1"
+GW_URL="http://136.114.63.200:8000/api/v1"
+
 ROLE_NAME="/FullAccess" 
 LOG_FILE="create_k8s_auth.log"
 
@@ -19,6 +21,16 @@ exec > >(tee -a "$LOG_FILE") 2>&1
 
 echo "--- Script started at $(date) ---"
 echo "--- Checking Environment ---"
+
+# --- Check gateway URL consistency ---
+if [ "$AKEYLESS_GATEWAY_URL" != "$GW_URL" ]; then
+    echo "ERROR: Gateway URL mismatch detected."
+    echo "The environment variable AKEYLESS_GATEWAY_URL and the script variable GW_URL must point to the same gateway."
+    echo "Environment variable AKEYLESS_GATEWAY_URL: $AKEYLESS_GATEWAY_URL"
+    echo "Script variable GW_URL: $GW_URL"
+    echo "Please update either the environment variable or the GW_URL value in the script so they match."
+    exit 1
+fi 
 
 CURRENT_CTX=$(kubectl config current-context)
 echo "Active context: $CURRENT_CTX"
@@ -86,7 +98,7 @@ fi
 
 # 6. Create Akeyless Auth Method
 echo "--- Creating Akeyless Auth Method ---"
-AUTH_RESULT=$(akeyless create-auth-method-k8s --name "$AUTH_METHOD_NAME" --json)
+AUTH_RESULT=$(akeyless create-auth-method-k8s --name "$AUTH_METHOD_NAME" --profile $PROFILE_NAME --json)
 echo "AUTH_METHOD_RESPONSE: $AUTH_RESULT"
 
 ACCESS_ID=$(echo $AUTH_RESULT | jq -r '.access_id')
@@ -95,7 +107,7 @@ PRV_KEY=$(echo $AUTH_RESULT | jq -r '.prv_key')
 echo "ACCESS_ID: $ACCESS_ID"
 echo "PRV_KEY: $PRV_KEY"
 
-akeyless assoc-role-am --role-name "$ROLE_NAME" --am-name "$AUTH_METHOD_NAME"
+akeyless assoc-role-am --role-name "$ROLE_NAME" --am-name "$AUTH_METHOD_NAME" --profile $PROFILE_NAME
 
 # 7. Configure Akeyless Gateway 
 echo "--- Configuring Akeyless Gateway ---"
@@ -111,7 +123,8 @@ akeyless gateway-create-k8s-auth-config \
     --k8s-host "$K8S_HOST" \
     --k8s-issuer "$K8S_ISSUER" \
     --k8s-ca-cert "$CA_CERT" \
-    --token-reviewer-jwt "$SA_JWT_TOKEN"
+    --token-reviewer-jwt "$SA_JWT_TOKEN" \
+	--profile $PROFILE_NAME
 
 if [ $? -eq 0 ]; then
     echo "--------------------------------------------------------"
