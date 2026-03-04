@@ -99,6 +99,9 @@ akeyless assoc-role-am --role-name "$ROLE_NAME" --am-name "$AUTH_METHOD_NAME"
 
 # 7. Configure Akeyless Gateway 
 echo "--- Configuring Akeyless Gateway ---"
+printf "\nConfiguring Kubernetes Authentication Config with the following parameters:\n"
+printf "%-15s : %s\n" "Config Name" "$GW_CONFIG_NAME"
+printf "%-15s : %s\n" "Gateway URL" "$GW_URL"
 
 akeyless gateway-create-k8s-auth-config \
     --name "$GW_CONFIG_NAME" \
