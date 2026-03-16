@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# --- UTF-8 Safety ---
+export LC_ALL=C.UTF-8
+export LANG=C.UTF-8
+
+# --- ANSI Color Codes (same as Setup Script) ---
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+CYAN='\033[0;36m'
+RED='\033[0;31m'
+NC='\033[0m'
+
 # --- CONFIGURATION ---
 TEST_NS="leon-k8-auth-test"
 SA_NAME="gateway-token-reviewer"
@@ -11,29 +22,34 @@ PROFILE_NAME="default"
 # --- Akeyless configuration
 AUTH_METHOD_NAME="/K8s/k8s-auth-leon-test"
 GW_CONFIG_NAME="k8s-config-created-by-script"
-GW_URL="https://gw-aws.lm.cs.akeyless.fans/api/v1"
+GW_URL="https://gw-gke.lm.cs.akeyless.fans/api/v1"
 
-ROLE_NAME="/FullAccess" 
+ROLE_NAME="/FullAccess"
 LOG_FILE="create_k8s_auth.log"
 
 # --- LOGGING SETUP ---
 exec > >(tee -a "$LOG_FILE") 2>&1
 
-echo "--- Script started at $(date) ---"
-echo "--- Checking Environment ---"
+printf "${CYAN}--- Script started at $(date) ---${NC}\n"
+printf "${CYAN}--- Checking Environment ---${NC}\n"
+
 
 # --- Check gateway URL consistency ---
 if [ "$AKEYLESS_GATEWAY_URL" != "$GW_URL" ]; then
-    echo "ERROR: Gateway URL mismatch detected."
-    echo "The environment variable AKEYLESS_GATEWAY_URL and the script variable GW_URL must point to the same gateway."
+
+    printf "${RED}ERROR: Gateway URL mismatch detected.${NC}\n"
     echo "Environment variable AKEYLESS_GATEWAY_URL: $AKEYLESS_GATEWAY_URL"
     echo "Script variable GW_URL: $GW_URL"
-    echo "Please update either the environment variable or the GW_URL value in the script so they match."
+    echo "Please update either the environment variable or the GW_URL value so they match."
+
     exit 1
-fi 
+fi
+
+printf "${GREEN}SUCCESS: Gateway URL validated.${NC}\n"
+
 
 CURRENT_CTX=$(kubectl config current-context)
-echo "Active context: $CURRENT_CTX"
+printf "${CYAN}Active Kubernetes context:${NC} %s\n" "$CURRENT_CTX"
 
 
 kubectl create namespace $TEST_NS --dry-run=client -o yaml | kubectl apply -f -
@@ -59,6 +75,7 @@ subjects:
   namespace: $TEST_NS
 EOF
 
+
 cat <<EOF > $TOKEN_FILE
 apiVersion: v1
 kind: Secret
@@ -70,50 +87,63 @@ metadata:
 type: kubernetes.io/service-account-token
 EOF
 
-echo "--- Applying manifests ---"
+
+printf "${CYAN}--- Applying Kubernetes manifests ---${NC}\n"
+
 kubectl apply -f $SA_FILE
 kubectl apply -f $TOKEN_FILE
+
 sleep 5
 
-# Extract Credentials (LOGGING ADDED, LOGIC UNCHANGED)
-echo "--- Extracting cluster credentials ---"
+
+# Extract Credentials
+printf "${CYAN}--- Extracting cluster credentials ---${NC}\n"
 
 SA_JWT_TOKEN=$(kubectl get secret $SECRET_NAME -n $TEST_NS --output='go-template={{.data.token | base64decode}}')
-echo "SA_JWT_TOKEN: $SA_JWT_TOKEN"
+printf "${GREEN}Token extracted.${NC}\n"
 
 CA_CERT=$(kubectl config view --raw --minify --flatten --output='jsonpath={.clusters[].cluster.certificate-authority-data}')
-echo "CA_CERT: $CA_CERT"
+printf "${GREEN}CA certificate captured.${NC}\n"
 
-# We keep your original logic for HOST and ISSUER
 K8S_HOST=$(kubectl config view --minify --output jsonpath='{.clusters[0].cluster.server}')
-echo "K8S_HOST: $K8S_HOST"
+printf "${GREEN}Kubernetes host detected:${NC} %s\n" "$K8S_HOST"
 
 K8S_ISSUER=$(kubectl get --raw /.well-known/openid-configuration | jq -r '.issuer' 2>/dev/null)
-echo "K8S_ISSUER: $K8S_ISSUER"
 
 if [ -z "$K8S_ISSUER" ] || [ "$K8S_ISSUER" == "null" ]; then
-    echo "ERROR: Failed to fetch K8S_ISSUER."
+    printf "${RED}ERROR: Failed to fetch K8S_ISSUER.${NC}\n"
     exit 1
 fi
 
-# 6. Create Akeyless Auth Method
-echo "--- Creating Akeyless Auth Method ---"
+printf "${GREEN}Kubernetes issuer detected.${NC}\n"
+
+
+# --- Create Akeyless Auth Method ---
+printf "${CYAN}--- Creating Akeyless Auth Method ---${NC}\n"
+
 AUTH_RESULT=$(akeyless create-auth-method-k8s --name "$AUTH_METHOD_NAME" --profile $PROFILE_NAME --json)
-echo "AUTH_METHOD_RESPONSE: $AUTH_RESULT"
 
 ACCESS_ID=$(echo $AUTH_RESULT | jq -r '.access_id')
 PRV_KEY=$(echo $AUTH_RESULT | jq -r '.prv_key')
 
+printf "${GREEN}SUCCESS: Auth Method created.${NC}\n"
+
 echo "ACCESS_ID: $ACCESS_ID"
 echo "PRV_KEY: $PRV_KEY"
 
+
 akeyless assoc-role-am --role-name "$ROLE_NAME" --am-name "$AUTH_METHOD_NAME" --profile $PROFILE_NAME
 
-# 7. Configure Akeyless Gateway 
-echo "--- Configuring Akeyless Gateway ---"
+printf "${GREEN}SUCCESS: Role associated with Auth Method.${NC}\n"
+
+
+# --- Configure Akeyless Gateway ---
+printf "${CYAN}--- Configuring Akeyless Gateway ---${NC}\n"
+
 printf "\nConfiguring Kubernetes Authentication Config with the following parameters:\n"
 printf "%-15s : %s\n" "Config Name" "$GW_CONFIG_NAME"
 printf "%-15s : %s\n" "Gateway URL" "$GW_URL"
+
 
 akeyless gateway-create-k8s-auth-config \
     --name "$GW_CONFIG_NAME" \
@@ -124,13 +154,18 @@ akeyless gateway-create-k8s-auth-config \
     --k8s-issuer "$K8S_ISSUER" \
     --k8s-ca-cert "$CA_CERT" \
     --token-reviewer-jwt "$SA_JWT_TOKEN" \
-	--profile $PROFILE_NAME
+    --profile $PROFILE_NAME
+
 
 if [ $? -eq 0 ]; then
+
     echo "--------------------------------------------------------"
-    echo "  SUCCESS! Log saved to $LOG_FILE"
+    printf "${GREEN}SUCCESS! Log saved to %s${NC}\n" "$LOG_FILE"
     echo "--------------------------------------------------------"
+
 else
-    echo "ERROR: Gateway configuration failed."
+
+    printf "${RED}ERROR: Gateway configuration failed.${NC}\n"
     exit 1
+
 fi
