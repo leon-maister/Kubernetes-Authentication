@@ -1,0 +1,7 @@
+docs/
+injector/
+test_k8s_auth/
+cleanup_k8s_auth.log
+create_k8s_auth.log
+generate_token_for_sa.yaml
+create_sa_gw_token_reviewer.yaml
