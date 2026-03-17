@@ -24,8 +24,18 @@ The `clean_up.sh` script performs a full teardown of the following resources:
 - **Manifests**: Deletes temporary `.yaml` files.
 - **Logs**: Removes the setup log file.
 
-## ⚙️ Configuration
-Edit the variables at the top of the scripts to match your environment (`TEST_NS`, `AUTH_METHOD_NAME`, etc.).
+## ⚙️ Configuration Variables
+The following template variables are defined within the scripts:
+
+### Kubernetes Settings
+- **TEST_NS**: `your-namespace`
+- **SA_NAME**: `your-service-account-name`
+- **SA_FILE/TOKEN_FILE**: Manifests for SA and Secret creation
+
+### Akeyless Settings
+- **AUTH_METHOD_NAME**: `/your-path/your-auth-method`
+- **GW_CONFIG_NAME**: `your-gw-config-name`
+- **GW_URL**: `https://your-akeyless-gateway-url/api/v1`
 
 ## 🚀 Usage
 1. Export your gateway URL:
