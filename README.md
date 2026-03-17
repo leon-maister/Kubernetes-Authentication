@@ -8,18 +8,24 @@ This repository contains scripts to automate the trust establishment between a K
 | k8s_auth_creation.sh | **Setup**: Creates K8s namespace, ServiceAccount, and configures Akeyless Auth Method + Gateway Config. |
 | clean_up.sh | **Cleanup**: Removes all K8s and Akeyless resources created by the setup script. |
 
-## ⚙️ Configuration Variables
-The following template variables are defined within the scripts:
+## 🧹 Cleanup Scope
+The `clean_up.sh` script performs a full teardown of the following resources:
 
-### Kubernetes Settings
-- **TEST_NS**: `your-namespace` (Target namespace)
-- **SA_NAME**: `your-service-account-name` (ServiceAccount for token reviews)
-- **SA_FILE/TOKEN_FILE**: Manifests for SA and Secret creation
+### 1. Akeyless Resources
+- **Gateway K8s Auth Config**: Removes the configuration from the Gateway.
+- **Auth Method**: Deletes the Kubernetes-type authentication method.
 
-### Akeyless Settings
-- **AUTH_METHOD_NAME**: `/your-path/your-auth-method`
-- **GW_CONFIG_NAME**: `your-gw-config-name`
-- **GW_URL**: `https://your-akeyless-gateway-url/api/v1`
+### 2. Kubernetes Resources
+- **ServiceAccount & Secret**: Removes the dedicated Token Reviewer account and its JWT token.
+- **ClusterRoleBinding**: Deletes the `auth-delegator` permission binding.
+- **Namespace**: Deletes the entire template namespace.
+
+### 3. Local Files
+- **Manifests**: Deletes temporary `.yaml` files.
+- **Logs**: Removes the setup log file.
+
+## ⚙️ Configuration
+Edit the variables at the top of the scripts to match your environment (`TEST_NS`, `AUTH_METHOD_NAME`, etc.).
 
 ## 🚀 Usage
 1. Export your gateway URL:
