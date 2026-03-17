@@ -1,0 +1,29 @@
+[0;36m--- Script started at Tue Mar 17 00:30:47 IST 2026 ---[0m
+[0;36m--- Checking Environment ---[0m
+[0;32mSUCCESS: Gateway URL validated.[0m
+[0;36mActive Kubernetes context:[0m vcluster_my-vcluster_leon_gke_customer-success-391112_us-central1_customer-success-391112-gke-sandbox
+namespace/leon-k8-auth-test created
+[0;36m--- Applying Kubernetes manifests ---[0m
+serviceaccount/gateway-token-reviewer created
+clusterrolebinding.rbac.authorization.k8s.io/role-tokenreview-binding-leon-k8-auth-test created
+secret/sa-reviewer-token created
+[0;36m--- Extracting cluster credentials ---[0m
+[0;32mToken extracted.[0m
+[0;32mCA certificate captured.[0m
+[0;32mKubernetes host detected:[0m https://34.67.71.35
+[0;32mKubernetes issuer detected.[0m
+[0;36m--- Creating Akeyless Auth Method ---[0m
+[0;32mSUCCESS: Auth Method created.[0m
+ACCESS_ID: p-kmx8x116z7j9km
+PRV_KEY: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFb3dJQkFBS0NBUUVBczBaMTJvTXo2R0FtcTZmUDJoU05BeUluVWlnbGFZUmIwQ1I1dnpPb3NFb2xCWVBtCkx3ZWRaRUdKQW5tQzZlWmlCNDhrdHR1ZS9ManBmOFRDSUlieUoyYlY0bTlTcHBVN0Vpd21GUzdoaGdiREpkZmkKYnMycEkrMUFJb2ZSWmF1RnlvVTl2SjdCUFNsN1N2SytkZ2xLR0ROdEJpNkk0SG1qaGhQZjhHNjZaSUoxYVZHcQo0VFl0bEJaUU5jaTVZYmhYQ1AyL1RBL0plMTVrOTJhdll4YkpWdytuU3JvcndyZWE3cnBhZEFKY0htMnNuZXJGCnBuSGJXZDROK1hBaEVHc3d3N0xKcjBBZGRZbkY3dDdRdkJ4Y0JCN3dHWmN0MHlhOU5wYmorYkVBdTRWbW1kWjcKY1ZveWpyZDBYZkxPOStiUHN5MkJGTENFeGVQWEdjS1VseFp3THdJREFRQUJBb0lCQUMva05VeWoreVJyTnpscApFWVlsTWt4eGZjYWRVZTAvdmhVN0FVa2FRRWlqN2dMc3F2dktVWG44WmVFQzIvMm5IVzMraCtUUGc4Zm9qL3doCmNHaW5GQjZCZ3NiRVRYU1I3aDliS3V0Q3hGMTlCZm5nazYxZEJIL0QrL3VkZzh0Z3lGT0RSNnhSVHJjTGsxUEEKeUMrWktMR1JYMkVrNGt6eFFjVnFIc3RJa1VPVEFUSFNlMmRSOUJUWENlWnVOcUhZdTRpdWZWamFmNnJIcEh3OAo2YlJaaU5Zcml6WVBvSDVIalVYUlA0RWdwWm5WeFlZdENNRnRLTTVTT21VY01hZThIczl0ZDJ4OUtlZUF2d3dWCkhlc3VlWXNxVk9paWhuNW82TnlXbmdRNjFSa21OL3E4WWtHUVRuOTRGUUMzWlRDTFpRcWI4REtkSDNVQ0d6clIKR3BtTnlnVUNnWUVBd0YwZ0xIaWNNaG1oSEIvUHRKZ1pDUEhGdkF1ZDBTblg0eWF0MVM1M1MwVmJxRGZnN0pBTwpJR05iUDUvTnltTWVqY1hGTUZpM1F6dmFlbzlJLzlUZWhBdll3SW1MRTBZMHJDenJMSHFqSVA0SE81bmhGZFk5CjNKc3VxZlEwOWk4S21VK0JPZDBpOUxDNDA5clNKU0NVUGVZTjl0RGtabnh0bXQ2aHpLU2lEOHNDZ1lFQTdwVGwKQ2FyQlFJR0dwUFN5c1Jwdk5zcVRYWGxCVG9Gc2JvQkJ6R1FWWWM3OWw1anNReXRTS3d0OENhS0oyYnR2YW5pKwpJNE53RnhVL1ZZTjBtRXUzdm5nTThDcHR6UzJla2RUSWFTZkU0L0JKQm1mODBlV1loL2xYVkR2d3NYS3dTZFlsCmJUM3ZteWttOE94WUNEeDhXQjNBT2ppNU80bDJkenVyNS90MHpLMENnWUF1MUwwbmRubDRUUHNIRU11TlNOWVgKY2x6VVNmT3kzei82d2dqaDlIMEFhek5FUWM1VmFVQzNLOWtrSlRDQmpCMzlIOS9BeEdoaFN1b0dtbW1JTnZleApKLzB0Nm81Y00rUlE0bUtpb255aVpKVzRNZDgxWk1JTXVnN2pPMXZGYjNCaUlKUHlWVjdVT1UzVjdkanBSd1F3CkNaanV0SzVXTVFheUJHOVpsZDhLZndLQmdGejRCSEJKNjloNUlNQ3k0ZGNGbUFUZjE2RDdHU25BWVVLR0ZCM1QKZWttTTRXRHJwRlZnVWpxWDFSUGtGSmVWNUlxMjFsRDhiUGR4dmlaU2ZXTERUcXlZRjJLWEJnYUlHbHgxY0VzWgp4aTJVZXNCV1VUeHhuWWlPN3lyUjJLOHRJK2tCMjcrLy9OaVhwcWNIVWg2VGcxaks3eGRBOTExdDZZMzQ0TG9iClVKNVpBb0dCQUkxTlJ2OVpFeUJ0bUcyeWwzbklZR0VJTjhLdmdUcjl4Z2FHZ1hkdDM0TXJYVUZhYkk4dEZIMVgKUTBuYUFiaXk2ZU9WWG1SL0pONDBTOXhCVE1JU3VUNlAyWFFCdGFEamMwZG5tZWZSRFpDaHZ1ZUVzcm9kWkFnNgozeUFVaDFvalVwdExnei9kek5SUEl4Z1NLQmU2WWxsVG9ESTkvV1c0SnZ2UE9ndjNuT0JXCi0tLS0tRU5EIFJTQSBQUklWQVRFIEtFWS0tLS0tCg==
+Association ass-d99lm18128dtg023wxaq was successfully created
+[0;32mSUCCESS: Role associated with Auth Method.[0m
+[0;36m--- Configuring Akeyless Gateway ---[0m
+
+Configuring Kubernetes Authentication Config with the following parameters:
+Config Name     : k8s-config-created-by-script
+Gateway URL     : https://gw-gke.lm.cs.akeyless.fans/api/v1
+K8S Auth config k8s-config-created-by-script successfully created. [ k8s-config-created-by-script]
+--------------------------------------------------------
+[0;32mSUCCESS! Log saved to create_k8s_auth.log[0m
+--------------------------------------------------------

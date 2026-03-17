@@ -1,0 +1,139 @@
+--- Cleanup started at Mon Mar 16 17:13:33 IST 2026 ---
+--- Deleting Akeyless Gateway K8s Config ---
+Gateway config 'k8s-config-created-by-script' does not exist — skipping deletion
+--- Deleting Akeyless Auth Method ---
+Auth Method /K8s/k8s-auth-leon-test was successfully deleted
+--- Deleting Kubernetes manifests and resources ---
+--- Removing Namespace and ClusterRoleBinding ---
+clusterrolebinding.rbac.authorization.k8s.io "role-tokenreview-binding-leon-k8-auth-test" deleted
+namespace "leon-k8-auth-test" deleted
+--- Cleaning up local files ---
+--------------------------------------------------------
+  CLEANUP COMPLETE! System is back to original state.  
+--------------------------------------------------------
+--- Cleanup started at Mon Mar 16 17:14:23 IST 2026 ---
+--- Deleting Akeyless Gateway K8s Config ---
+Gateway config 'k8s-config-created-by-script' does not exist — skipping deletion
+--- Deleting Akeyless Auth Method ---
+Auth method '/K8s/k8s-auth-leon-test' does not exist — skipping deletion
+--- Deleting Kubernetes manifests and resources ---
+--- Removing Namespace and ClusterRoleBinding ---
+--- Cleaning up local files ---
+--------------------------------------------------------
+  CLEANUP COMPLETE! System is back to original state.  
+--------------------------------------------------------
+--- Cleanup started at Mon Mar 16 17:17:31 IST 2026 ---
+ERROR: Gateway URL mismatch detected.
+The environment variable AKEYLESS_GATEWAY_URL and the script variable GW_URL must point to the same gateway.
+Environment variable AKEYLESS_GATEWAY_URL: https://gw-gke.lm.cs.akeyless.fans/api/v1
+Script variable GW_URL: https://gw-aws.lm.cs.akeyless.fans/api/v1
+Please update either the environment variable or the GW_URL value in the script so they match.
+--- Cleanup started at Mon Mar 16 17:17:54 IST 2026 ---
+--- Deleting Akeyless Gateway K8s Config ---
+K8S Auths configs k8s-config-created-by-script successfully deleted
+--- Deleting Akeyless Auth Method ---
+Auth Method /K8s/k8s-auth-leon-test was successfully deleted
+--- Deleting Kubernetes manifests and resources ---
+serviceaccount "gateway-token-reviewer" deleted from leon-k8-auth-test namespace
+clusterrolebinding.rbac.authorization.k8s.io "role-tokenreview-binding-leon-k8-auth-test" deleted
+--- Removing Namespace and ClusterRoleBinding ---
+namespace "leon-k8-auth-test" deleted
+--- Cleaning up local files ---
+--------------------------------------------------------
+  CLEANUP COMPLETE! System is back to original state.  
+--------------------------------------------------------
+[0;36m--- Cleanup started at Mon Mar 16 17:45:17 IST 2026 ---[0m
+[0;36mChecking gateway URL consistency...[0m
+[0;32mSUCCESS: Gateway URL validated.[0m
+[0;36m--- Deleting Akeyless Gateway K8s Config ---[0m
+K8S Auths configs k8s-config-created-by-script successfully deleted
+[0;32mSUCCESS: Gateway config deleted.[0m
+[0;36m--- Deleting Akeyless Auth Method ---[0m
+Auth Method /K8s/k8s-auth-leon-test was successfully deleted
+[0;32mSUCCESS: Auth method deleted.[0m
+[0;36m--- Deleting Kubernetes manifests and resources ---[0m
+serviceaccount "gateway-token-reviewer" deleted from leon-k8-auth-test namespace
+clusterrolebinding.rbac.authorization.k8s.io "role-tokenreview-binding-leon-k8-auth-test" deleted
+[0;32mSUCCESS: ServiceAccount manifest removed.[0m
+[0;32mSUCCESS: Token manifest removed.[0m
+[0;36m--- Removing Namespace and ClusterRoleBinding ---[0m
+namespace "leon-k8-auth-test" deleted
+[0;32mSUCCESS: Kubernetes resources removed.[0m
+[0;36m--- Cleaning up local files ---[0m
+[0;32mSUCCESS: Local files cleaned.[0m
+--------------------------------------------------------
+[0;32m CLEANUP COMPLETE! System is back to original state. [0m
+--------------------------------------------------------
+[0;36m--- Cleanup started at Mon Mar 16 17:46:17 IST 2026 ---[0m
+[0;36mChecking gateway URL consistency...[0m
+[0;32mSUCCESS: Gateway URL validated.[0m
+[0;36m--- Deleting Akeyless Gateway K8s Config ---[0m
+[0;33mGateway config 'k8s-config-created-by-script' does not exist — skipping.[0m
+[0;36m--- Deleting Akeyless Auth Method ---[0m
+[0;33mAuth method '/K8s/k8s-auth-leon-test' does not exist — skipping.[0m
+[0;36m--- Deleting Kubernetes manifests and resources ---[0m
+[0;33mServiceAccount manifest not found — skipping.[0m
+[0;33mToken manifest not found — skipping.[0m
+[0;36m--- Removing Namespace and ClusterRoleBinding ---[0m
+[0;32mSUCCESS: Kubernetes resources removed.[0m
+[0;36m--- Cleaning up local files ---[0m
+[0;32mSUCCESS: Local files cleaned.[0m
+--------------------------------------------------------
+[0;32m CLEANUP COMPLETE! System is back to original state. [0m
+--------------------------------------------------------
+[0;36m--- Cleanup started at Mon Mar 16 17:48:59 IST 2026 ---[0m
+[0;36mChecking gateway URL consistency...[0m
+[0;32mSUCCESS: Gateway URL validated.[0m
+[0;36m--- Deleting Akeyless Gateway K8s Config ---[0m
+K8S Auths configs k8s-config-created-by-script successfully deleted
+[0;32mSUCCESS: Gateway config deleted.[0m
+[0;36m--- Deleting Akeyless Auth Method ---[0m
+Auth Method /K8s/k8s-auth-leon-test was successfully deleted
+[0;32mSUCCESS: Auth method deleted.[0m
+[0;36m--- Deleting Kubernetes manifests and resources ---[0m
+serviceaccount "gateway-token-reviewer" deleted from leon-k8-auth-test namespace
+clusterrolebinding.rbac.authorization.k8s.io "role-tokenreview-binding-leon-k8-auth-test" deleted
+[0;32mSUCCESS: ServiceAccount manifest removed.[0m
+[0;32mSUCCESS: Token manifest removed.[0m
+[0;36m--- Removing Namespace and ClusterRoleBinding ---[0m
+namespace "leon-k8-auth-test" deleted
+[0;32mSUCCESS: Kubernetes resources removed.[0m
+[0;36m--- Cleaning up local files ---[0m
+[0;32mSUCCESS: Local files cleaned.[0m
+--------------------------------------------------------
+[0;32m CLEANUP COMPLETE! System is back to original state. [0m
+--------------------------------------------------------
+[0;36m--- Cleanup started at Mon Mar 16 17:51:52 IST 2026 ---[0m
+[0;36mChecking gateway URL consistency...[0m
+[0;31mERROR: Gateway URL mismatch detected.[0m
+Environment variable AKEYLESS_GATEWAY_URL: https://gw-gke.lm.cs.akeyless.fans/api/v1
+Script variable GW_URL: https://gw-gke2.lm.cs.akeyless.fans/api/v1
+Please update either the environment variable or the GW_URL value so they match.
+[0;36m--- Cleanup started at Tue Mar 17 00:29:44 IST 2026 ---[0m
+[0;36mChecking gateway URL consistency...[0m
+[0;31mERROR: Gateway URL mismatch detected.[0m
+Environment variable AKEYLESS_GATEWAY_URL: https://gw-aws.lm.cs.akeyless.fans/api/v1
+Script variable GW_URL: https://gw-gke.lm.cs.akeyless.fans/api/v1
+Please update either the environment variable or the GW_URL value so they match.
+[0;36m--- Cleanup started at Tue Mar 17 00:30:27 IST 2026 ---[0m
+[0;36mChecking gateway URL consistency...[0m
+[0;32mSUCCESS: Gateway URL validated.[0m
+[0;36m--- Deleting Akeyless Gateway K8s Config ---[0m
+K8S Auths configs k8s-config-created-by-script successfully deleted
+[0;32mSUCCESS: Gateway config deleted.[0m
+[0;36m--- Deleting Akeyless Auth Method ---[0m
+Auth Method /K8s/k8s-auth-leon-test was successfully deleted
+[0;32mSUCCESS: Auth method deleted.[0m
+[0;36m--- Deleting Kubernetes manifests and resources ---[0m
+serviceaccount "gateway-token-reviewer" deleted
+clusterrolebinding.rbac.authorization.k8s.io "role-tokenreview-binding-leon-k8-auth-test" deleted
+[0;32mSUCCESS: ServiceAccount manifest removed.[0m
+[0;32mSUCCESS: Token manifest removed.[0m
+[0;36m--- Removing Namespace and ClusterRoleBinding ---[0m
+namespace "leon-k8-auth-test" deleted
+[0;32mSUCCESS: Kubernetes resources removed.[0m
+[0;36m--- Cleaning up local files ---[0m
+[0;32mSUCCESS: Local files cleaned.[0m
+--------------------------------------------------------
+[0;32m CLEANUP COMPLETE! System is back to original state. [0m
+--------------------------------------------------------
