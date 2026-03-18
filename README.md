@@ -8,6 +8,24 @@ This repository contains scripts to automate the trust establishment between a K
 | k8s_auth_creation.sh | **Setup**: Creates K8s namespace, ServiceAccount, and configures Akeyless Auth Method + Gateway Config. |
 | clean_up.sh | **Cleanup**: Removes all K8s and Akeyless resources created by the setup script. |
 
+## 🏗️ Setup Scope (k8s_auth_creation.sh)
+The `k8s_auth_creation.sh` script automates the entire integration process:
+
+### 1. Environment Validation
+- Validates the `AKEYLESS_GATEWAY_URL` environment variable.
+- Detects the active Kubernetes context, Host, and Issuer URL.
+
+### 2. Kubernetes Resource Provisioning
+- **Namespace**: Creates a dedicated namespace for testing.
+- **ServiceAccount**: Provisions a `gateway-token-reviewer` account.
+- **RBAC**: Configures `system:auth-delegator` permissions via ClusterRoleBinding.
+- **JWT Token**: Generates a long-lived Secret-based token for Akeyless to communicate with K8s.
+
+### 3. Akeyless Configuration
+- **Auth Method**: Creates a new Kubernetes Authentication Method and generates an Access ID/Private Key.
+- **Role Association**: Links the new Auth Method to a specified Akeyless Role (e.g., FullAccess).
+- **Gateway Config**: Configures the Akeyless Gateway with the cluster's CA Cert, Host, Issuer, and Token Reviewer JWT.
+
 ## 🧹 Cleanup Scope
 The `clean_up.sh` script performs a full teardown of the following resources:
 
