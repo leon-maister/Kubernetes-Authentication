@@ -64,3 +64,5 @@ export AKEYLESS_GATEWAY_URL="https://your-akeyless-gateway-url/api/v1"
 
 ---
 **Maintained by**: [Template Repository]
+
+<small><sub>/home/keyless/k8s</sub></small>
