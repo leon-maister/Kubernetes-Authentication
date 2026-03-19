@@ -2,6 +2,9 @@
 
 This repository contains scripts to automate the trust establishment between a Kubernetes cluster and Akeyless Gateway.
 
+### 🎯 Project Goal
+**The primary goal of this project is to automate the creation and configuration of an Akeyless Kubernetes Authentication Method.**
+
 ## 📂 Core Components
 | File | Function |
 | :--- | :--- |
