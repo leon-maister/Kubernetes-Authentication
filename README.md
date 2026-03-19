@@ -66,6 +66,6 @@ export AKEYLESS_GATEWAY_URL="https://your-akeyless-gateway-url/api/v1"
 2. Run `./k8s_auth_creation.sh` to setup or `./clean_up.sh` to remove resources.
 
 ---
-**Maintained by**: [Template Repository]
+**Maintained by**: [leon-maister](https://github.com/leon-maister)
 
 <small><sub>/home/keyless/k8s</sub></small>
