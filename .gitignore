@@ -5,3 +5,7 @@ cleanup_k8s_auth.log
 create_k8s_auth.log
 generate_token_for_sa.yaml
 create_sa_gw_token_reviewer.yaml
+
+akeyless-k8s-python-demo/
+create_sa_gw_token_reviewer-for-ns-demo.yaml
+generate_token_for_sa-for-ns-demo.yaml
