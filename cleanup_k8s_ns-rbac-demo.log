@@ -1,0 +1,66 @@
+[0;36m--- Cleanup started at Tue Apr 14 15:39:30 IDT 2026 ---[0m
+[0;36mChecking gateway URL consistency...[0m
+[0;32mSUCCESS: Gateway URL validated.[0m
+[0;36m--- Deleting Akeyless Gateway K8s Config ---[0m
+K8S Auths configs k8s-config-ns-rbac-demo successfully deleted
+[0;32mSUCCESS: Gateway config deleted.[0m
+[0;36m--- Deleting Akeyless Auth Method ---[0m
+Auth Method /K8s/k8s-ns-rbac-demo was successfully deleted
+[0;32mSUCCESS: Auth method deleted.[0m
+[0;36m--- Deleting Kubernetes manifests and resources ---[0m
+serviceaccount "gateway-token-reviewer-for-ns-demo" deleted
+clusterrolebinding.rbac.authorization.k8s.io "role-tokenreview-binding-k8-ns-rbac-auth-demo" deleted
+[0;32mSUCCESS: ServiceAccount manifest removed.[0m
+[0;32mSUCCESS: Token manifest removed.[0m
+[0;36m--- Removing Namespace and ClusterRoleBinding ---[0m
+namespace "k8-ns-rbac-auth-demo" deleted
+[0;32mSUCCESS: Kubernetes resources removed.[0m
+[0;36m--- Cleaning up local files ---[0m
+[0;32mSUCCESS: Local files cleaned.[0m
+--------------------------------------------------------
+[0;32m CLEANUP COMPLETE! System is back to original state. [0m
+--------------------------------------------------------
+[0;36m--- Cleanup started at Tue Apr 14 15:48:29 IDT 2026 ---[0m
+[0;36mChecking gateway URL consistency...[0m
+[0;32mSUCCESS: Gateway URL validated.[0m
+[0;36m--- Deleting Akeyless Gateway K8s Config ---[0m
+K8S Auths configs k8s-config-ns-rbac-demo successfully deleted
+[0;32mSUCCESS: Gateway config deleted.[0m
+[0;36m--- Deleting Akeyless Auth Method ---[0m
+Auth Method /K8s/k8s-ns-rbac-demo was successfully deleted
+[0;32mSUCCESS: Auth method deleted.[0m
+[0;36m--- Deleting Kubernetes manifests and resources ---[0m
+serviceaccount "gateway-token-reviewer-for-ns-demo" deleted
+clusterrolebinding.rbac.authorization.k8s.io "role-tokenreview-binding-k8-ns-rbac-auth-demo" deleted
+[0;32mSUCCESS: ServiceAccount manifest removed.[0m
+[0;32mSUCCESS: Token manifest removed.[0m
+[0;36m--- Removing Namespace and ClusterRoleBinding ---[0m
+namespace "k8-ns-rbac-auth-demo" deleted
+[0;32mSUCCESS: Kubernetes resources removed.[0m
+[0;36m--- Cleaning up local files ---[0m
+[0;32mSUCCESS: Local files cleaned.[0m
+--------------------------------------------------------
+[0;32m CLEANUP COMPLETE! System is back to original state. [0m
+--------------------------------------------------------
+[0;36m--- Cleanup started at Tue Apr 14 15:54:15 IDT 2026 ---[0m
+[0;36mChecking gateway URL consistency...[0m
+[0;32mSUCCESS: Gateway URL validated.[0m
+[0;36m--- Deleting Akeyless Gateway K8s Config ---[0m
+K8S Auths configs k8s-config-ns-rbac-demo successfully deleted
+[0;32mSUCCESS: Gateway config deleted.[0m
+[0;36m--- Deleting Akeyless Auth Method ---[0m
+Auth Method /K8s/k8s-ns-rbac-demo was successfully deleted
+[0;32mSUCCESS: Auth method deleted.[0m
+[0;36m--- Deleting Kubernetes manifests and resources ---[0m
+serviceaccount "gateway-token-reviewer-for-ns-demo" deleted
+clusterrolebinding.rbac.authorization.k8s.io "role-tokenreview-binding-k8-ns-rbac-auth-demo" deleted
+[0;32mSUCCESS: ServiceAccount manifest removed.[0m
+[0;32mSUCCESS: Token manifest removed.[0m
+[0;36m--- Removing Namespace and ClusterRoleBinding ---[0m
+namespace "k8-ns-rbac-auth-demo" deleted
+[0;32mSUCCESS: Kubernetes resources removed.[0m
+[0;36m--- Cleaning up local files ---[0m
+[0;32mSUCCESS: Local files cleaned.[0m
+--------------------------------------------------------
+[0;32m CLEANUP COMPLETE! System is back to original state. [0m
+--------------------------------------------------------

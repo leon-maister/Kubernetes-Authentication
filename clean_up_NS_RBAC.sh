@@ -12,19 +12,21 @@ RED='\033[0;31m'
 NC='\033[0m' # No Color (Reset)
 
 # --- CONFIGURATION (Must match the creation script) ---
-TEST_NS="leon-k8-auth-test"
-SA_NAME="gateway-token-reviewer"
-SA_FILE="create_sa_gw_token_reviewer.yaml"
-TOKEN_FILE="generate_token_for_sa.yaml"
-
-# Akeyless resource names
-AUTH_METHOD_NAME="/K8s/k8s-auth-leon-test"
-GW_CONFIG_NAME="k8s-config-created-by-script"
-GW_URL="https://gw-gke.lm.cs.akeyless.fans/api/v1"
+TEST_NS="k8-ns-rbac-auth-demo"
+SA_NAME="gateway-token-reviewer-for-ns-demo"
+SA_FILE="create_sa_gw_token_reviewer-for-ns-demo.yaml"
+TOKEN_FILE="generate_token_for_sa-for-ns-demo.yaml"
+SECRET_NAME="sa-reviewer-token-for-ns-demo"
 PROFILE_NAME="default"
 
+# --- Akeyless configuration
+AUTH_METHOD_NAME="/K8s/k8s-ns-rbac-demo"
+GW_CONFIG_NAME="k8s-config-ns-rbac-demo"
+GW_URL="https://gw-gke.lm.cs.akeyless.fans/api/v1"
+
+
 # Log file for cleanup tracking
-LOG_FILE="cleanup_k8s_auth.log"
+LOG_FILE="cleanup_k8s_ns-rbac-demo.log"
 
 # --- LOGGING SETUP ---
 exec > >(tee -a "$LOG_FILE") 2>&1

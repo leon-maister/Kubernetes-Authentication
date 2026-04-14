@@ -68,4 +68,4 @@ export AKEYLESS_GATEWAY_URL="https://your-akeyless-gateway-url/api/v1"
 ---
 **Maintained by**: [leon-maister](https://github.com/leon-maister)
 
-<small><sub>/home/keyless/k8s</sub></small>
+<sub style="color: gray;">/home/keyless/k8s | vcluster_my-vcluster_leon_gke_customer-success-391112_us-central1_customer-success-391112-gke-sandbox</sub>
