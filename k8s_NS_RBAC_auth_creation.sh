@@ -24,7 +24,7 @@ AUTH_METHOD_NAME="/K8s/k8s-ns-rbac-demo"
 GW_CONFIG_NAME="k8s-config-ns-rbac-demo"
 GW_URL="https://gw-gke.lm.cs.akeyless.fans/api/v1"
 
-ROLE_NAME="/FullAccess"
+ROLE_NAME="/Demo/K8S/Namespace-Demo/"
 LOG_FILE="create_k8s_auth.log"
 
 # --- LOGGING SETUP ---
@@ -131,6 +131,17 @@ printf "${GREEN}SUCCESS: Auth Method created.${NC}\n"
 echo "ACCESS_ID: $ACCESS_ID"
 echo "PRV_KEY: $PRV_KEY"
 
+# --- Ensure Akeyless Role exists ---
+printf "${CYAN}--- Checking if Akeyless Role '$ROLE_NAME' exists ---${NC}\n"
+
+if ! akeyless get-role --name "$ROLE_NAME" --profile "$PROFILE_NAME" >/dev/null 2>&1; then
+    printf "${YELLOW}Role '$ROLE_NAME' not found. Creating it...${NC}\n"
+    akeyless create-role --name "$ROLE_NAME" --profile "$PROFILE_NAME"
+    printf "${GREEN}SUCCESS: Role '$ROLE_NAME' created.${NC}\n"
+	ROLE_CREATED=true
+else
+    printf "${GREEN}SUCCESS: Role '$ROLE_NAME' already exists.${NC}\n"
+fi
 
 akeyless assoc-role-am --role-name "$ROLE_NAME" --am-name "$AUTH_METHOD_NAME" --profile $PROFILE_NAME
 
@@ -162,6 +173,15 @@ if [ $? -eq 0 ]; then
     echo "--------------------------------------------------------"
     printf "${GREEN}SUCCESS! Log saved to %s${NC}\n" "$LOG_FILE"
     echo "--------------------------------------------------------"
+
+	if [ "$ROLE_CREATED" = true ]; then
+		echo "--------------------------------------------------------"
+		printf "${YELLOW}ATTENTION: The role '$ROLE_NAME' was created automatically.${NC}\n"
+		printf "${YELLOW}Please remember to set up the necessary permissions (rules) for this role,${NC}\n"
+		printf "${YELLOW}otherwise applications will not be able to access secrets.${NC}\n"
+		echo "Example: akeyless set-role-rule --role-name \"$ROLE_NAME\" --path \"/path/to/secrets/*\" --rule-type item-all --capability read"
+		echo "--------------------------------------------------------"
+	fi
 
 else
 
