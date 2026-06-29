@@ -1,71 +1,44 @@
-# Kubernetes Authentication Automation (Akeyless)
+# Akeyless GitHub Actions & AWS S3 Integration Demo
 
-This repository contains scripts to automate the trust establishment between a Kubernetes cluster and Akeyless Gateway.
+This repository demonstrates how to securely retrieve AWS credentials from Akeyless using GitHub Actions OIDC (JWT) authentication and deploy a timestamp verification file to an Amazon S3 bucket.
 
 ### 🎯 Project Goal
-**The primary goal of this project is to automate the creation and configuration of an Akeyless Kubernetes Authentication Method.**
+**The primary goal of this project is to eliminate hardcoded cloud credentials in CI/CD pipelines by leveraging a keyless connection between GitHub Actions and Akeyless.**
+
+### 🧩 Process Decomposition
+
+#### Phase 1: Authentication & Secrets Fetch
+1. **OIDC Handshake**: GitHub Actions generates a short-lived, cryptographically signed OIDC JWT token.
+2. **Akeyless Validation**: The Akeyless Github Action sends this token to the Akeyless API, verifying the GitHub repository identity.
+3. **Secure Retrieval**: Upon successful authentication, Akeyless securely returns the AWS credentials payload (JSON) to the runner memory.
+
+#### Phase 2: Application Logic & AWS Deployment
+1. **Credential Parsing**: The Python script parses the Akeyless secret JSON, extracting the dynamic AWS Access Key and Secret Key.
+2. **State Verification**: The script checks if the target S3 bucket exists within the specified AWS region, automatically creating it if it is missing.
+3. **Artifact Persistence**: A local text file containing a valid GMT timestamp is generated and uploaded directly to the AWS S3 bucket.
 
 ## 📂 Core Components
 | File | Function |
 | :--- | :--- |
-| k8s_auth_creation.sh | **Setup**: Creates K8s namespace, ServiceAccount, and configures Akeyless Auth Method + Gateway Config. |
-| clean_up.sh | **Cleanup**: Removes all K8s and Akeyless resources created by the setup script. |
-
-## 🏗️ Setup Scope (k8s_auth_creation.sh)
-The `k8s_auth_creation.sh` script automates the entire integration process:
-
-### 1. Environment Validation
-- Validates the `AKEYLESS_GATEWAY_URL` environment variable.
-- Detects the active Kubernetes context, Host, and Issuer URL.
-
-### 2. Kubernetes Resource Provisioning
-- **Namespace**: Creates a dedicated namespace for testing.
-- **ServiceAccount**: Provisions a `gateway-token-reviewer` account.
-- **RBAC**: Configures `system:auth-delegator` permissions via ClusterRoleBinding.
-- **JWT Token**: Generates a long-lived Secret-based token for Akeyless to communicate with K8s.
-
-### 3. Akeyless Configuration
-- **Auth Method**: Creates a new Kubernetes Authentication Method and generates an Access ID/Private Key.
-- **Role Association**: Links the new Auth Method to a specified Akeyless Role (e.g., FullAccess).
-- **Gateway Config**: Configures the Akeyless Gateway with the cluster's CA Cert, Host, Issuer, and Token Reviewer JWT.
-
-## 🧹 Cleanup Scope
-The `clean_up.sh` script performs a full teardown of the following resources:
-
-### 1. Akeyless Resources
-- **Gateway K8s Auth Config**: Removes the configuration from the Gateway.
-- **Auth Method**: Deletes the Kubernetes-type authentication method.
-
-### 2. Kubernetes Resources
-- **ServiceAccount & Secret**: Removes the dedicated Token Reviewer account and its JWT token.
-- **ClusterRoleBinding**: Deletes the `auth-delegator` permission binding.
-- **Namespace**: Deletes the entire template namespace.
-
-### 3. Local Files
-- **Manifests**: Deletes temporary `.yaml` files.
-- **Logs**: Removes the setup log file.
+| .github/workflows/aws-demo.yml | **GitHub Pipeline**: Orchestrates OIDC auth with Akeyless and sets environment variables. |
+| main.py | **Python Application**: Parses fetched credentials, manages S3 buckets, and handles file uploads via boto3. |
 
 ## ⚙️ Configuration Variables
-The following template variables are defined within the scripts:
+The following pipeline variables are utilized within the environment:
 
-### Kubernetes Settings
-- **TEST_NS**: `your-namespace`
-- **SA_NAME**: `your-service-account-name`
-- **SA_FILE/TOKEN_FILE**: Manifests for SA and Secret creation
+### GitHub Actions Inputs
+- `bucket_name`: Name of the target AWS S3 bucket (Default: `leon-akeyless-github-plugin-aws-integration-demo-bucket`).
 
-### Akeyless Settings
-- **AUTH_METHOD_NAME**: `/your-path/your-auth-method`
-- **GW_CONFIG_NAME**: `your-gw-config-name`
-- **GW_URL**: `https://your-akeyless-gateway-url/api/v1`
+### Application Runtime Environments
+- `AWS_CREDS_JSON`: Raw JSON string from Akeyless containing cloud access keys.
+- `AWS_DEFAULT_REGION`: Target AWS deployment region (Configured to `us-east-2`).
 
 ## 🚀 Usage
-1. Export your gateway URL:
-```bash
-export AKEYLESS_GATEWAY_URL="https://your-akeyless-gateway-url/api/v1"
-```
-2. Run `./k8s_auth_creation.sh` to setup or `./clean_up.sh` to remove resources.
+1. Push changes to the repository or manually trigger the workflow from the GitHub Actions tab.
+2. Provide a custom S3 bucket name if needed, then run the workflow.
+3. Monitor execution and verify the presence of `demo-timestamp.txt` in your AWS S3 console.
 
 ---
 **Maintained by**: [leon-maister](https://github.com/leon-maister)
 
-<sub style="color: gray;">/home/keyless/k8s | vcluster_my-vcluster_leon_gke_customer-success-391112_us-central1_customer-success-391112-gke-sandbox</sub>
+<sub style="color: gray;">/home/keyless/PluginDemo</sub>
