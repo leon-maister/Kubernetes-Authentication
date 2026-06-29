@@ -8,6 +8,7 @@ This repository contains scripts to automate the trust establishment between a K
 ## 📂 Core Components
 | File | Function |
 | :--- | :--- |
+| config.sh | **Configuration**: Centralized shared variables for environment, Akeyless, and logging parameters. |
 | k8s_auth_creation.sh | **Setup**: Creates K8s namespace, ServiceAccount, and configures Akeyless Auth Method + Gateway Config. |
 | clean_up.sh | **Cleanup**: Removes all K8s and Akeyless resources created by the setup script. |
 
@@ -26,7 +27,7 @@ The `k8s_auth_creation.sh` script automates the entire integration process:
 
 ### 3. Akeyless Configuration
 - **Auth Method**: Creates a new Kubernetes Authentication Method and generates an Access ID/Private Key.
-- **Role Association**: Links the new Auth Method to a specified Akeyless Role (e.g., FullAccess).
+- **Role Association**: Links the new Auth Method to a specified Akeyless Role (e.g., K8sAccess).
 - **Gateway Config**: Configures the Akeyless Gateway with the cluster's CA Cert, Host, Issuer, and Token Reviewer JWT.
 
 ## 🧹 Cleanup Scope
@@ -46,7 +47,7 @@ The `clean_up.sh` script performs a full teardown of the following resources:
 - **Logs**: Removes the setup log file.
 
 ## ⚙️ Configuration Variables
-The following template variables are defined within the scripts:
+All template variables are managed centrally inside `config.sh`:
 
 ### Kubernetes Settings
 - **TEST_NS**: `your-namespace`
@@ -68,4 +69,4 @@ export AKEYLESS_GATEWAY_URL="https://your-akeyless-gateway-url/api/v1"
 ---
 **Maintained by**: [leon-maister](https://github.com/leon-maister)
 
-<sub style="color: gray;">/home/keyless/k8s | vcluster_my-vcluster_leon_gke_customer-success-391112_us-central1_customer-success-391112-gke-sandbox</sub>
+<sub style="color: gray;">/home/keyless/k8s | CS-EKS</sub>
