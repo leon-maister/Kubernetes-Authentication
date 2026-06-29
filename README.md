@@ -30,8 +30,8 @@ The `k8s_auth_creation.sh` script automates the entire integration process using
 - **Role Association**: Links the new Auth Method to a specified Akeyless Role (e.g., K8sAccess).
 - **Gateway Config**: Configures the Akeyless Gateway with the cluster's CA Cert, Host, Issuer, and Token Reviewer JWT.
 
-## 🧹 Cleanup Scope
-The `clean_up.sh` script performs a full teardown of the following resources:
+## 🧹 Cleanup Scope (clean_up.sh)
+The `clean_up.sh` script performs a full teardown of the following resources using values defined in `config.sh`:
 
 ### 1. Akeyless Resources
 - **Gateway K8s Auth Config**: Removes the configuration from the Gateway.
