@@ -13,7 +13,7 @@ This repository contains scripts to automate the trust establishment between a K
 | clean_up.sh | **Cleanup**: Removes all K8s and Akeyless resources created by the setup script. |
 
 ## 🏗️ Setup Scope (k8s_auth_creation.sh)
-The `k8s_auth_creation.sh` script automates the entire integration process:
+The `k8s_auth_creation.sh` script automates the entire integration process using values defined in `config.sh`:
 
 ### 1. Environment Validation
 - Validates the `AKEYLESS_GATEWAY_URL` environment variable.
@@ -43,7 +43,7 @@ The `clean_up.sh` script performs a full teardown of the following resources:
 - **Namespace**: Deletes the entire template namespace.
 
 ### 3. Local Files
-- **Manifests**: Deletes temporary `.yaml` files.
+- **Manifests**: Deletes temporary ".yaml" files.
 - **Logs**: Removes the setup log file.
 
 ## ⚙️ Configuration Variables
