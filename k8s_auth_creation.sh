@@ -12,20 +12,10 @@ RED='\033[0;31m'
 NC='\033[0m'
 
 # --- CONFIGURATION ---
-TEST_NS="leon-k8-auth"
-SA_NAME="gateway-token-reviewer"
-SA_FILE="create_sa_gw_token_reviewer.yaml"
-TOKEN_FILE="generate_token_for_sa.yaml"
+source ./config.sh
+LOG_FILE="$CREATE_LOG_FILE"
 SECRET_NAME="sa-reviewer-token"
 PROFILE_NAME="default"
-
-# --- Akeyless configuration
-AUTH_METHOD_NAME="/K8s/k8s-auth"
-GW_CONFIG_NAME="k8s-config-created-by-script-eks"
-GW_URL="https://gw-aws.lm.cs.akeyless.fans/api/v1"
-
-ROLE_NAME="/K8sAccess"
-LOG_FILE="create_k8s_auth.log"
 
 # --- LOGGING SETUP ---
 exec > >(tee -a "$LOG_FILE") 2>&1

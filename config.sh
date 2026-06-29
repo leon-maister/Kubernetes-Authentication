@@ -3,7 +3,7 @@
 # ==========================================
 
 # Kubernetes Cluster Environment
-TEST_NS="leon-k8-auth-test"
+TEST_NS="leon-k8-auth"
 SA_NAME="gateway-token-reviewer"
 SA_FILE="create_sa_gw_token_reviewer_eks.yaml"
 TOKEN_FILE="generate_token_for_sa_eks.yaml"
