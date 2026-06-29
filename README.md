@@ -60,11 +60,15 @@ All template variables are managed centrally inside `config.sh`:
 - **GW_URL**: `https://your-akeyless-gateway-url/api/v1`
 
 ## 🚀 Usage
-1. Export your gateway URL:
+1. Configure your environment variables in `config.sh`:
+```bash
+nano config.sh
+```
+2. Export your gateway URL:
 ```bash
 export AKEYLESS_GATEWAY_URL="https://your-akeyless-gateway-url/api/v1"
 ```
-2. Run `./k8s_auth_creation.sh` to setup or `./clean_up.sh` to remove resources.
+3. Run `./k8s_auth_creation.sh` to setup or `./clean_up.sh` to remove resources.
 
 ---
 **Maintained by**: [leon-maister](https://github.com/leon-maister)
